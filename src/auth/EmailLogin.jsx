@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { signInWithEmailLink, sendSignInLinkToEmail, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from '../config/firebaseConfig.js'; // Ensure this is your correct path
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
+import { auth } from '../config/firebaseConfig.js'; 
+import { useNavigate } from 'react-router-dom'; 
 
 const EmailLogin = () => {
   const [email, setEmail] = useState("");
   const [emailSent, setEmailSent] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     setDisabled(email.trim() === "" || !email.includes("@") || !email.includes("."));
@@ -15,12 +15,12 @@ const EmailLogin = () => {
 
   const handleSendLink = async () => {
     const actionCodeSettings = {
-      url: import.meta.env.VITE_REDIRECT_LOGIN_URL, // After login, redirect to this URL
+      url: import.meta.env.VITE_REDIRECT_LOGIN_URL,
       handleCodeInApp: true,
     };
     try {
       await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-      window.localStorage.setItem("emailForSignIn", email); // Save email locally
+      window.localStorage.setItem("emailForSignIn", email);
       setEmailSent(true);
       alert("Verification link sent to your email");
     } catch (error) {
@@ -34,7 +34,7 @@ const EmailLogin = () => {
     if (signInWithEmailLink(auth, emailForSignIn, window.location.href)) {
       window.localStorage.removeItem("emailForSignIn");
       alert("Login successful");
-      navigate('/home'); // Redirect after successful login
+      navigate('/home');
     } else {
       alert("Invalid sign-in link");
     }
@@ -46,7 +46,7 @@ const EmailLogin = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       alert(`Welcome ${user.displayName}!`);
-      navigate('/home'); // Redirect to /home after successful login
+      navigate('/home');
     } catch (error) {
       console.error("Error with Google sign-in:", error);
       alert("Failed to sign in with Google");
@@ -54,12 +54,12 @@ const EmailLogin = () => {
   };
 
   useEffect(() => {
-    // Check if this page is accessed via a sign-in link
+    
     const emailForSignIn = window.localStorage.getItem("emailForSignIn");
     if (emailForSignIn && signInWithEmailLink(auth, emailForSignIn, window.location.href)) {
       handleLogin();
     }
-  }, []); // Runs on component mount
+  }, []); 
 
   return (
     <div className='flex flex-col items-center justify-center min-h-screen bg-gray p-4 bg-[#3c3c3c]'>

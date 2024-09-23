@@ -18,7 +18,7 @@ const HomePage = () => {
     if (user) {
       setEmail(user.email);
       const keys = JSON.parse(localStorage.getItem("publicKeys")) || {};
-      setCurrentKey(keys.Xpub || null); // Only consider "Xpub"
+      setCurrentKey(keys.Xpub || null); // Only consider "Xpub" for now, will add later functions MOVING FORWARD
       setIsKeySet(!!keys.Xpub);
     } else {
       navigate("/"); // Redirect to login if not logged in

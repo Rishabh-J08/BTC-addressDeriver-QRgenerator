@@ -14,7 +14,7 @@ const FinishLogin = () => {
           .then((result) => {
             console.log("Login successful!", result);
             window.localStorage.removeItem("emailForSignIn");
-            navigate("/home"); // Redirect to homepage
+            navigate("/home"); 
           })
           .catch((error) => {
             console.error("Error completing login", error);
@@ -22,10 +22,10 @@ const FinishLogin = () => {
       }
     }
 
-    // Check if the user is already logged in
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigate("/home"); // Redirect to homepage if already logged in
+        navigate("/home");
       }
     });
 

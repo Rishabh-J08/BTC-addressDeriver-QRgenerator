@@ -10,19 +10,18 @@ const DeriveAddress = () => {
   const [totalAddresses, setTotalAddresses] = useState(0);
   const [numAddresses, setNumAddresses] = useState(10);
   const [copiedIndex, setCopiedIndex] = useState(null);
-  const [xpubType, setXpubType] = useState('p2wpkh'); // Default xpub type
-  const [derivationPath, setDerivationPath] = useState("m/49'/0'/0'/0"); // Default derivation path
+  const [xpubType, setXpubType] = useState('p2wpkh'); 
+  const [derivationPath, setDerivationPath] = useState("m/49'/0'/0'/0");
   const addressesPerPage = 10;
   const navigate = useNavigate();
 
   useEffect(() => {
     const user = auth.currentUser;
     if (!user) {
-      navigate("/"); // Redirect to login if not logged in
+      navigate("/");
     }
   }, [auth, navigate]);
 
-  // Function to generate addresses based on user input
   const handleGenerateRandomAddresses = async () => {
     const keys = JSON.parse(localStorage.getItem("publicKeys")) || {};
     const xpubOrZpub = keys.Xpub || keys.Zpub;
@@ -74,7 +73,6 @@ const DeriveAddress = () => {
     }
   };
 
-  // Copy the address to the clipboard
   const handleCopy = (address, idx) => {
     navigator.clipboard.writeText(address).then(() => {
       setCopiedIndex(idx);
